@@ -8,7 +8,7 @@ import Example from '../database/models/ExampleModel';
 
 import { Response } from 'superagent';
 import SequelizeTeam from '../database/models/TeamsModel';
-import { teams } from './mooks.ts/teamsMock';
+import { team, teams } from './mooks.ts/teamsMock';
 
 chai.use(chaiHttp);
 
@@ -25,4 +25,22 @@ describe('Teams Testes', () => {
     expect(status).to.equal(200);
     expect(body).to.deep.equal(teams);
   });
+  it('Retorna time pelo id', async function () {
+    sinon.stub(SequelizeTeam, 'findOne').resolves(team as any);
+
+    const { status, body } = await chai.request(app).get('/teams/1');
+
+    expect(status).to.equal(200);
+    expect(body).to.deep.equal(team);
+  });
+
+  it('Não retorna o time', async function () {
+    sinon.stub(SequelizeTeam, 'findOne').resolves(null);
+
+    const { status, body } = await chai.request(app).get('/teams/0');
+
+    expect(status).to.equal(404);
+    expect(body.message).to.equal('Team 0 not found');
+  });
+  afterEach(sinon.restore);
 });

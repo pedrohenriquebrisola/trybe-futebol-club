@@ -26,8 +26,21 @@ export default class MatchesModel implements IMatchesModel {
     });
     return dbData;
   }
+  // prettier-ignore
 
   async finishingProgress(id: number): Promise<void> {
     await this.model.update({ inProgress: false }, { where: { id } });
+  }
+
+  // prettier-ignore
+  async updateMatche(
+    homeTeamG: number,
+    awayTeamG: number,
+    id: number,
+  ): Promise<void> {
+    await this.model.update(
+      { homeTeamGoals: homeTeamG, awayTeamGoals: awayTeamG },
+      { where: { id } },
+    );
   }
 }

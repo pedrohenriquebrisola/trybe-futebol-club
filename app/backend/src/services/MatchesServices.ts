@@ -24,4 +24,14 @@ export default class MatchesService {
     await this.matchesModel.finishingProgress(id);
     return { status: 'SUCCESSFUL', data: { message: 'Finished' } };
   }
+
+  // prettier-ignore
+  public async updateMatche(
+    homeTeamG: number,
+    awayTeamG: number,
+    id: number,
+  ): Promise<ServiceResponse<{ message: string }>> {
+    await this.matchesModel.updateMatche(homeTeamG, awayTeamG, id);
+    return { status: 'SUCCESSFUL', data: { message: 'Changed Successfully' } };
+  }
 }

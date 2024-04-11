@@ -24,4 +24,16 @@ export default class MatchesController {
     const serviceResponse = await this.MetchesService.finishingProgress(Number(id));
     res.status(200).json(serviceResponse.data);
   }
+  // prettier-ignore
+
+  public async updateMatche(req: Request, res: Response) {
+    const { id } = req.params;
+    const { homeTeamGoals, awayTeamGoals } = req.body;
+    const serviceResponse = await this.MetchesService.updateMatche(
+      homeTeamGoals,
+      awayTeamGoals,
+      Number(id),
+    );
+    res.status(200).json(serviceResponse.data);
+  }
 }

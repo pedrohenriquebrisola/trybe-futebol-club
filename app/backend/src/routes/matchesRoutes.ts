@@ -16,4 +16,7 @@ router.patch(
   (req: Request, res: Response) => matchesController.finishingMatche(req, res),
 );
 
+// prettier-ignore
+router.patch('/:id', Validations.validateToken, (req: Request, res: Response) =>
+  matchesController.updateMatche(req, res));
 export default router;

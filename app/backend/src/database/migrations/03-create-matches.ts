@@ -1,6 +1,6 @@
 import { Model, QueryInterface, DataTypes } from 'sequelize';
 
-import { IMatches } from '../../Interfaces/matches/IMaches';
+import { IMatches } from '../../Interfaces/matches/IMatches';
 
 export default {
   up(queryInterface: QueryInterface) {

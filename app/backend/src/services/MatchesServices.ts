@@ -17,4 +17,11 @@ export default class MatchesService {
     const allInfoProgress = await this.matchesModel.findAllProgress(progress);
     return { status: 'SUCCESSFUL', data: allInfoProgress };
   }
+
+  // prettier-ignore
+  public async finishingProgress(id: number):
+  Promise<ServiceResponse<{ message: 'Finished' }>> {
+    await this.matchesModel.finishingProgress(id);
+    return { status: 'SUCCESSFUL', data: { message: 'Finished' } };
+  }
 }

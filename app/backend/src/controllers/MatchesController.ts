@@ -17,4 +17,11 @@ export default class MatchesController {
     const serviceResponse = await this.MetchesService.findAllProgress(progress);
     res.status(200).json(serviceResponse.data);
   }
+  // prettier-ignore
+
+  public async finishingMatche(req: Request, res: Response) {
+    const { id } = req.params;
+    const serviceResponse = await this.MetchesService.finishingProgress(Number(id));
+    res.status(200).json(serviceResponse.data);
+  }
 }

@@ -4,7 +4,9 @@ type ServiceResponseErrorType =
   | 'INVALID_DATA'
   | 'UNAUTHORIZED'
   | 'NOT_FOUND'
-  | 'CONFLICT';
+  | 'CONFLICT'
+  | 'UNPROCESSABLE'
+  | 'CREATE';
 
 export type ServiceResponseError = {
   status: ServiceResponseErrorType;
@@ -12,7 +14,7 @@ export type ServiceResponseError = {
 };
 
 export type ServiceResponseSuccess<T> = {
-  status: 'SUCCESSFUL';
+  status: 'SUCCESSFUL' | 'CREATE';
   data: T;
 };
 

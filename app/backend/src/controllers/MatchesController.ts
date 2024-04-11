@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import MatchesService from '../services/MatchesServices';
+import mapStatusHTTP from '../utils/HTTPStatus';
 
 export default class MatchesController {
   constructor(private MetchesService = new MatchesService()) {}
@@ -35,5 +36,12 @@ export default class MatchesController {
       Number(id),
     );
     res.status(200).json(serviceResponse.data);
+  }
+
+  public async createMatche(req: Request, res: Response) {
+    const serviceResponse = await this.MetchesService.createMatche(req.body);
+    return res
+      .status(mapStatusHTTP(serviceResponse.status))
+      .json(serviceResponse.data);
   }
 }

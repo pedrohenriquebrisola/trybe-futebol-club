@@ -1,5 +1,3 @@
-// import { number } from 'joi';
-// import { ServiceResponse } from '../Interfaces/ServicesResponse';
 import { ILeaderBoard, IMatches } from '../Interfaces/matches/IMatches';
 import MatchesModel from '../models/MatchesModels';
 import TeamsModel from '../models/TeamsModels';

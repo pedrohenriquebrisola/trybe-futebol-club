@@ -1,7 +1,6 @@
-import { ILeaderBoard, IMatches } from '../Interfaces/matches/IMatches';
+import { ILeaderBoardTotal, IMatches } from '../Interfaces/matches/IMatches';
 import MatchesModel from '../models/MatchesModels';
 import TeamsModel from '../models/TeamsModels';
-
 // prettier-ignore
 export default class LeaderBoardsService {
   constructor(
@@ -33,7 +32,7 @@ export default class LeaderBoardsService {
     const allMatche = await this.matchesModel.findAllProgress(false);
     const result = LeaderBoardsService.creteResult();
     allMatche.forEach((matche) => {
-      if (id === matche.awayTeamId || id === matche.homeTeamId) {
+      if (id === matche.homeTeamId) {
         result.totalGames += 1;
         result.totalVictories += LeaderBoardsService.findResult(id, matche) > 0 ? 1 : 0;
         result.totalDraws += LeaderBoardsService.findResult(id, matche) === 0 ? 1 : 0;
@@ -45,20 +44,40 @@ export default class LeaderBoardsService {
     return result;
   }
 
-  public async findAll(): Promise<ILeaderBoard[]> {
-    const allTeams = await this.teamsModel.findAll();
+  static ordenArray(array: ILeaderBoardTotal[]) {
+    const arrayTeams = array.sort(
+      (a: ILeaderBoardTotal, b: ILeaderBoardTotal) => {
+        if (a.totalPoints !== b.totalPoints) {
+          return b.totalPoints - a.totalPoints;
+        }
+        if (a.totalVictories !== b.totalVictories) {
+          return b.totalVictories - a.totalVictories;
+        }
+        if (a.goalsBalance !== b.goalsBalance) {
+          return b.goalsBalance - a.goalsBalance;
+        }
+        return b.goalsFavor - a.goalsFavor;
+      },
+    );
+    return arrayTeams;
+  }
 
+  public async findAll(): Promise<ILeaderBoardTotal[]> {
+    const allTeams = await this.teamsModel.findAll();
     const leaderBoardsPromises = allTeams.map(async (team) => {
       const result = await this.findStatisc(team.id);
       const newResult = {
         name: team.teamName,
         totalPoints: result.totalVictories * 3 + result.totalDraws,
         ...result,
+        goalsBalance: result.goalsFavor - result.goalsOwn,
+        efficiency: (((result.totalVictories * 3 + result.totalDraws)
+        / (result.totalGames * 3)) * 100).toFixed(2),
       };
       return newResult;
     });
-
     const leaderBoards = await Promise.all(leaderBoardsPromises);
-    return leaderBoards;
+    const ordemLeaderBoards = LeaderBoardsService.ordenArray(leaderBoards);
+    return ordemLeaderBoards;
   }
 }

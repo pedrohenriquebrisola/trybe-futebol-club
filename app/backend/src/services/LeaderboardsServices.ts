@@ -1,8 +1,9 @@
 import { ILeaderBoardTotal, IMatches } from '../Interfaces/matches/IMatches';
 import MatchesModel from '../models/MatchesModels';
 import TeamsModel from '../models/TeamsModels';
-// prettier-ignore
+
 export default class LeaderBoardsService {
+  // prettier-ignore
   constructor(
     private matchesModel: MatchesModel = new MatchesModel(),
     private teamsModel: TeamsModel = new TeamsModel(),
@@ -44,6 +45,7 @@ export default class LeaderBoardsService {
     return result;
   }
 
+  // prettier-ignore
   static ordenArray(array: ILeaderBoardTotal[]) {
     const arrayTeams = array.sort(
       (a: ILeaderBoardTotal, b: ILeaderBoardTotal) => {
@@ -62,6 +64,7 @@ export default class LeaderBoardsService {
     return arrayTeams;
   }
 
+  // prettier-ignore
   public async findAll(): Promise<ILeaderBoardTotal[]> {
     const allTeams = await this.teamsModel.findAll();
     const leaderBoardsPromises = allTeams.map(async (team) => {

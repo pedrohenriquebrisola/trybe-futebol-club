@@ -29,11 +29,29 @@ export default class LeaderBoardsService {
   }
 
   // prettier-ignore
-  public async findStatisc(id: number) {
+  public async findStatisc(id: number, homeTeam: boolean) {
     const allMatche = await this.matchesModel.findAllProgress(false);
     const result = LeaderBoardsService.creteResult();
     allMatche.forEach((matche) => {
-      if (id === matche.homeTeamId) {
+      const team = homeTeam === true ? id === matche.homeTeamId : id === matche.awayTeamId;
+      if (team) {
+        result.totalGames += 1;
+        result.totalVictories += LeaderBoardsService.findResult(id, matche) > 0 ? 1 : 0;
+        result.totalDraws += LeaderBoardsService.findResult(id, matche) === 0 ? 1 : 0;
+        result.totalLosses += LeaderBoardsService.findResult(id, matche) < 0 ? 1 : 0;
+        result.goalsFavor += id === matche.homeTeamId ? matche.homeTeamGoals : matche.awayTeamGoals;
+        result.goalsOwn += id === matche.homeTeamId ? matche.awayTeamGoals : matche.homeTeamGoals;
+      }
+    });
+    return result;
+  }
+
+  // prettier-ignore
+  public async findStatiscAll(id: number) {
+    const allMatche = await this.matchesModel.findAllProgress(false);
+    const result = LeaderBoardsService.creteResult();
+    allMatche.forEach((matche) => {
+      if (id === matche.homeTeamId || id === matche.awayTeamId) {
         result.totalGames += 1;
         result.totalVictories += LeaderBoardsService.findResult(id, matche) > 0 ? 1 : 0;
         result.totalDraws += LeaderBoardsService.findResult(id, matche) === 0 ? 1 : 0;
@@ -65,10 +83,11 @@ export default class LeaderBoardsService {
   }
 
   // prettier-ignore
-  public async findAll(): Promise<ILeaderBoardTotal[]> {
+  public async findAll(homeOrWay: boolean, all: boolean): Promise<ILeaderBoardTotal[]> {
     const allTeams = await this.teamsModel.findAll();
     const leaderBoardsPromises = allTeams.map(async (team) => {
-      const result = await this.findStatisc(team.id);
+      const result = all === false ? await this.findStatisc(team.id, homeOrWay)
+        : await this.findStatiscAll(team.id);
       const newResult = {
         name: team.teamName,
         totalPoints: result.totalVictories * 3 + result.totalDraws,

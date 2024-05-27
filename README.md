@@ -9,10 +9,19 @@ Nesse projeto, eu construí um back-end dockerizado utilizando modelagem de dado
 
 # Instruções de Instalação :)
 <details>
-`npm install`
-`npm run install:apps`
+ ```bash
+npm install
+```
+ ```bash
+npm run install:apps
+```
+ ```bash
+npm run compose:up
+```
+ ```bash
+npm run test:local
+```
+<!--  na pasta app/backend
 `npm run compose:up`
- na pasta app/backend
-`npm run compose:up`
-`npm run prestart`
+`npm run prestart` -->
 </details>

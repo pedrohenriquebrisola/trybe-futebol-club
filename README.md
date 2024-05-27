@@ -1,10 +1,18 @@
-# :construction: README em construção ! :construction:
-<!-- Olá, Tryber!
-Esse é apenas um arquivo inicial para o README do seu projeto.
-É essencial que você preencha esse documento por conta própria, ok?
-Não deixe de usar nossas dicas de escrita de README de projetos, e deixe sua criatividade brilhar!
-:warning: IMPORTANTE: você precisa deixar nítido:
-- quais arquivos/pastas foram desenvolvidos por você; 
-- quais arquivos/pastas foram desenvolvidos por outra pessoa estudante;
-- quais arquivos/pastas foram desenvolvidos pela Trybe.
--->
+Boas vindas ao repositório do Trybe Futebol Clube!
+O TFC é um site informativo sobre partidas e classificações de futebol! ⚽️
+
+Descrição do Projeto
+No time de desenvolvimento do TFC, fui responsável por desenvolver uma API e também integrar - através do docker-compose - as aplicações para que elas funcionem consumindo um banco de dados.
+
+Nesse projeto, eu construí um back-end dockerizado utilizando modelagem de dados através do Sequelize. Respeitando as regras de negócio providas no projeto e fazendo a API ser capaz de ser consumida por um front-end já provido nesse projeto pela Trybe.
+
+
+# Instruções de Instalação 😉
+<details>
+- `npm install`
+- `npm run install:apps`
+- `npm run compose:up`
+ - na pasta app/backend
+- `npm run compose:up`
+- `npm run prestart`
+</details>

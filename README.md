@@ -8,9 +8,7 @@ Nesse projeto, eu construí um back-end dockerizado utilizando modelagem de dado
 
 
 # Instruções de Instalação :)
-<details>
   1. `npm install`
   2. `npm run install:apps`
   3. `npm run compose:up`
   4. `npm run prestart`
-</details>

@@ -8,15 +8,9 @@ Nesse projeto, eu construí um back-end dockerizado utilizando modelagem de dado
 
 
 # Instruções de Instalação :)
-Passo 1: Instalar Dependências
-Na raiz do projeto, execute os seguintes comandos para instalar as dependências:
-npm install
-npm run install:apps
-
-Passo 2: Levantar os Containers
-Utilize o Docker Compose para levantar os containers da aplicação:
-npm run compose:up
-
-Passo 3: Iniciar o Back-end
-Na pasta app/backend, execute o comando para iniciar o back-end:
-npm run prestart
+<details>
+  1. `npm install`
+  2. `npm run install:apps`
+  3. `npm run compose:up`
+  4. `npm run prestart`
+</details>
